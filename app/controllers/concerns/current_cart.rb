@@ -6,3 +6,4 @@ module  CurrentCart
     @cart = Cart.create
     session[:cart_id] = @cart_id
 end
+end
