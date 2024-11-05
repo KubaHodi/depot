@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[ show edit update destroy ]
 
+
   # GET /carts or /carts.json
   def index
     @carts = Cart.all
@@ -8,6 +9,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
+      session[:counter]=0
   end
 
   # GET /carts/new
@@ -22,9 +24,10 @@ class CartsController < ApplicationController
   # POST /carts or /carts.json
   def create
     @cart = Cart.new(cart_params)
-
     respond_to do |format|
+      
       if @cart.save
+        
         format.html { redirect_to @cart, notice: "Cart was successfully created." }
         format.json { render :show, status: :created, location: @cart }
       else
