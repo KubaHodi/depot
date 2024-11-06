@@ -1,5 +1,6 @@
 class StoreController < ApplicationController
-  
+  include CurrentCart
+  before_action :set_cart
   before_action :licznik_odwiedzin, only: [:index]
 
   def index
