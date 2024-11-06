@@ -25,7 +25,7 @@
     </header>
     <section class="flex">
       <nav class="bg-green-900 p-6">
-        <p class="text-white"><%=if session[:counter]>5
+        <p class="text-white"><%=if session[:counter] > 5
         "You have visited this site #{pluralize(session[:counter],'time')}"
         end%></p> <!---użyłem metody pluralize żeby dodawać końcówkę "times" w zależności od ilości odwiedzin-->
         <p class="bg-green-200">Date: <%= Date.today()%></p>
