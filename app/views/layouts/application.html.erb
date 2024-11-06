@@ -25,10 +25,7 @@
     </header>
     <section class="flex">
       <nav class="bg-green-900 p-6">
-        <div id="cart" class="bg-white rounded p-2">
-          <%= render @cart %>
-        </div>
-
+        <%= render partial: 'layouts/cart', locals: {cart: @cart}%>
         <p class="text-white"><%if session[:counter] >= 5%>
         <%="You have visited this site #{pluralize(session[:counter],'time')}"%>
         <%end%></p> <!---użyłem metody pluralize żeby dodawać końcówkę "times" w zależności od ilości odwiedzin-->
