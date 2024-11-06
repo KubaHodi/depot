@@ -2,9 +2,8 @@
     <h2 class="font-bold text-lg mb-3">Your Pragmatic Cart</h2>
 
     <ul class="list-none list-inside">
-        <%cart.line_items.each do |item|%>
-        <li><%=item.quantity%> &times; <%=item.product.title%></li>
-
-        <%end%>
+            <% cart.line_items.each do |item| %>
+            <li><%= item.quantity %> &times; <%= item.product.title%></li>
+        <% end %>
     </ul>
 </div>

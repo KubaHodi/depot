@@ -1,17 +1,44 @@
-class CombineItemsInCart < ActiveRecord::Migration[7.2]
- def up
-  Cart.all.each do |cart|
-    sums = cart.line_items.group(:product_id).sum(:quantity)
+#---
+# Excerpted from "Agile Web Development with Rails 7",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material,
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose.
+# Visit https://pragprog.com/titles/rails7 for more book information.
+#---
+class CombineItemsInCart < ActiveRecord::Migration[7.0]
 
-    sums.each do |product_id, quantity|
-      if quantity > 1
-        cart.line_items.where(product_id: product_id).delete_all
-        
-        item = cart.line_items.build(product_id: product_id)
-        item.quantity = quantity
-        item.save!
+  def up
+  
+    
+    Cart.all.each do |cart|
+     
+      sums = cart.line_items.group(:product_id).sum(:quantity)
+
+      sums.each do |product_id, quantity|
+        if quantity > 1
+          
+          cart.line_items.where(product_id: product_id).delete_all
+
+          
+          item = cart.line_items.build(product_id: product_id)
+          item.quantity = quantity
+          item.save!
+        end
       end
     end
-  end 
-end
+  end
+
+  def down  
+    LineItem.where("quantity>1").each do |line_item|     
+      line_item.quantity.times do 
+        LineItem.create(
+          cart_id: line_item.cart_id,
+          product_id: line_item.product_id,
+          quantity: 1
+        )
+      end
+      line_item.destroy
+    end
+  end
 end
