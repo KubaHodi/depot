@@ -4,6 +4,13 @@ class LineItemsTest < ApplicationSystemTestCase
   setup do
     @line_item = line_items(:one)
   end
+  
+  test "highlighted line item" do
+  have_css ('.line-item-highlight')
+  click_on "New line item"
+  assert_text "Line item successfully highlighted"
+
+  end
 
   test "visiting the index" do
     visit line_items_url
