@@ -14,3 +14,8 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym "RESTful"
 # end
+
+#page 304 inflections
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.irregular 'tax', 'taxes'
+end
