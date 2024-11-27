@@ -1,4 +1,4 @@
-class Order < ActiveRecord::Base
+class Order < ApplicationRecord
 #CREATE
 an_order = Order.new
   an_order.name = "Dave Thomas"
