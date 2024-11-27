@@ -45,5 +45,26 @@ orders = Order.create([
     pay_type: "po"
   }
 ] )
+
+orders = LineItem.find_by_sql("select line_items.* from line_items, orders" +
+"where order_id = orders.id" +
+"and orders.name = 'Dave Thomas'")
+
+orders = Order.find_by_sql("select name, pay_type from orders")
+first = orders[0]
+p first.attributes #=> {"name"=>"Dave Thomas", "pay_type"=>"check"}
+p first.attributes_names #=> ["name", "pay_type"]
+p first.attribute_present?("address") #=> false
+
+items = LineItem.find_by_sql("select *,"+
+"products.price as unit_price,"+
+"quantity*products.price as total_price,"+
+"products.title as title"+
+"from line_items, products"+
+"where line_items.product_id = products.id")
+li = items[0]
+puts "#{li.title}: #{li.quantity}x#{li.unit_price} => #{li.total_price}"
+
+Order.find_by_sql(["select * from orders where amount > ?", params[:amount]])
 end
 
