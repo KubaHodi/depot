@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+#CREATE
 an_order = Order.new
   an_order.name = "Dave Thomas"
   an_order.email = "dave@example.com"
@@ -44,6 +45,5 @@ orders = Order.create([
     pay_type: "po"
   }
 ] )
-
 end
 
