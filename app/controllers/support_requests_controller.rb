@@ -6,7 +6,7 @@ class SupportRequestsController < ApplicationController
   def update
     support_request = SupportRequest.find(params[:id])
     support_request.update(response: params.require(:support_request)[:response])
-    SupportRequestMailer.respond(support_request).deliever_now
+    SupportRequestMailer.respond(support_request).deliever!
     redirect_to support_request_path
   end
 end

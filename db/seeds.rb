@@ -30,5 +30,4 @@ right away.
 </p>
 }, image_url: 'maapis.jpg', price: 24.95)
 
-User.create! name: 'dave',
-    password: Rails.application.credentials.dave_password
+
