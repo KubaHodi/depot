@@ -15,7 +15,7 @@ module ActiveSupport
 
   class ActionDispatch::IntegrationTest
     def login_as(user)
-      if respond_to? :visit
+      if respond_to? :click_on
         visit login_url
         fill_in :name,	with: user.name
         fill_in :password,	with: "secret"
@@ -32,6 +32,5 @@ module ActiveSupport
     def setup
       login_as users(:one)
     end
-    
   end
 end

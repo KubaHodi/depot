@@ -64,6 +64,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-gem "pg", "~> 1.5.9"
+gem "pg", "~> 1.4", :group => :production
 
 

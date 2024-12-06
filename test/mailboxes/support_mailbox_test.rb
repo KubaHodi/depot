@@ -4,12 +4,12 @@ class SupportMailboxTest < ActionMailbox::TestCase
   test "we create a SupportRequest when we get a support email" do
     receive_inbound_email_from_mail(
       to: "support@example.com",
-      from: "",
+      from: "dave@example.org",
       subject: "yes",
       body: "test"
     )
     support_request = SupportRequest.last
-    assert_equal "", support_request.email
+    assert_equal "dave@example.org", support_request.email
     assert_equal "yes", support_request.subject
     assert_equal "test", support_request.body
 
@@ -33,4 +33,5 @@ class SupportMailboxTest < ActionMailbox::TestCase
     assert_equal "I can't figure out how to check out!!", support_request.body
     assert_equal recent_order, support_request.order
   end
+
 end

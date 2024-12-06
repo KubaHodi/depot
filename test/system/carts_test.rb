@@ -12,3 +12,4 @@ class CartsTest < ApplicationSystemTestCase
     click_on "Empty Cart"
     assert_selector 'p', text: 'Date:/'
   end
+end
