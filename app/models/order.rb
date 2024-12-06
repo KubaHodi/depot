@@ -18,7 +18,7 @@ class Order < ApplicationRecord
   end
 
   def charge!(pay_type_params)
-    payment_details{}
+    payment_details={}
     payment_method = nil
     
     case pay_type
@@ -28,7 +28,7 @@ class Order < ApplicationRecord
       payment_details[:account] = pay_type_params[:account_number]
     when "Credit card"
       payment_method = :credit_card
-      month,year = pay_type_params[:expiration_date].split(//)
+      month, year = pay_type_params[:expiration_date].split(//)
       payment_details[:cc_num] = pay_type_params[:credit_card_nubmer]
       payment_details[:expiration_month] = month
       payment_details[:expiration_year] = year

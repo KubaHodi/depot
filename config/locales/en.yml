@@ -68,8 +68,8 @@ en:
         "Credit card": "Credit Card"
         "Purchase order": "Purchase Order"
     check:
-      routing_number: "Routing #"
-      account_number: "Account #"
+      routing_number: "Routing number"
+      account_number: "Account number"
     cc:
       cc_number: "CC #"
       expiration_date: "Expiry"

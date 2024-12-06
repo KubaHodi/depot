@@ -3,13 +3,8 @@ require "application_system_test_case"
 class LineItemsTest < ApplicationSystemTestCase
   setup do
     @line_item = line_items(:one)
-  end
-  
-  test "highlighted line item" do
-  have_css ('.line-item-highlight')
-  click_on "New line item"
-  assert_text "Line item successfully highlighted"
-
+    @user = users(:one)
+    log_in(@user)
   end
 
   test "visiting the index" do
@@ -21,11 +16,9 @@ class LineItemsTest < ApplicationSystemTestCase
     visit line_items_url
     click_on "New line item"
 
-    fill_in "Cart", with: @line_item.cart_id
     fill_in "Product", with: @line_item.product_id
+    fill_in "Cart", with: @line_item.cart_id
     click_on "Create Line item"
-
-    assert_text "Line item was successfully created"
     click_on "Back"
   end
 

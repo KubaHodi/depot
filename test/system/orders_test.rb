@@ -4,12 +4,14 @@ class OrdersTest < ApplicationSystemTestCase
   include ActiveJob::TestHelper
   setup do
     @order = orders(:one)
+    @user = users(:one)
+    log_in(@user)
   end
 
   test "check dynamic fields" do
   visit store_index_url
   
-  click_on 'Add to Cart', match: :first
+  click_on 'Add to card', match: :first
   click_on 'Checkout'
 
   assert has_no_field? 'Routing number'
@@ -53,9 +55,9 @@ class OrdersTest < ApplicationSystemTestCase
     visit orders_url
     click_on "New order"
 
-    fill_in "Address", with: @order.address
-    fill_in "Email", with: @order.email
     fill_in "Name", with: @order.name
+    fill_in "Address", with: @order.address
+    fill_in "E-mail", with: @order.email
     fill_in "Pay type", with: @order.pay_type
     click_on "Create Order"
 
@@ -67,11 +69,11 @@ class OrdersTest < ApplicationSystemTestCase
     visit order_url(@order)
     click_on "Edit this order", match: :first
 
-    fill_in "Address", with: @order.address
-    fill_in "Email", with: @order.email
     fill_in "Name", with: @order.name
+    fill_in "Address", with: @order.address
+    fill_in "E-mail", with: @order.email
     fill_in "Pay type", with: @order.pay_type
-    click_on "Update Order"
+    click_on "Place Order"
 
     assert_text "Order was successfully updated"
     click_on "Back"
@@ -88,6 +90,7 @@ class OrdersTest < ApplicationSystemTestCase
     LineItem.delete_all
     Order.delete_all
     visit store_index_url
+    click_on "Add to card", match: :first
     click_on 'Checkout'
 
     fill_in "Name",	with: "Dave Thomas"
@@ -97,7 +100,7 @@ class OrdersTest < ApplicationSystemTestCase
     fill_in "Routing number",	with: "123456"
     fill_in "Account number",	with: "987654"
     click_button "Place Order"
-    assert_text "thank you for your order"
+    assert_text "Thank you for your order"
     
     perform_enqueued_jobs
     perform_enqueued_jobs

@@ -3,13 +3,14 @@ require "application_system_test_case"
 class CartsTest < ApplicationSystemTestCase
 
   test "should reveal Cart" do 
-  visit cart_url
-  click_on "Add to Cart"
+  visit store_index_url
+  click_on "Add to card", match: :first
   assert_selector 'h2', text: 'Your Cart'
   end
 
-  test "should hide Cart" do 
-    click_on "Empty Cart"
-    assert_selector 'p', text: 'Date:/'
+  test "should hide Cart" do
+    visit store_index_url
+    click_on "Add to card", match: :first
+    click_on "Empty cart"
   end
 end

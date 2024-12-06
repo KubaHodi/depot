@@ -36,7 +36,7 @@
     { prompt: t('.pay_prompt_html') },
     'data-payment-target' => 'selection',
     'data-action' => 'payment#showAdditionalFields',
-    class: "input-field" %>
+    class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2" %>
   </div>
   <%=render partial: 'check', locals: {form: form}%>
   <%=render partial: 'cc', locals: {form: form}%>
