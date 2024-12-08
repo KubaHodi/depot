@@ -12,5 +12,6 @@ class CartsTest < ApplicationSystemTestCase
     visit store_index_url
     click_on "Add to card", match: :first
     click_on "Empty cart"
+    assert_text "Your cart is currently empty"
   end
 end

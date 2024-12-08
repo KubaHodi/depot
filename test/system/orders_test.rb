@@ -23,12 +23,12 @@ class OrdersTest < ApplicationSystemTestCase
   select 'Check', from: 'Pay type'
 
   assert has_field? 'Routing number'
-  assert has_field? 'Account nubmer'
+  assert has_field? 'Account number'
   assert has_no_field? 'Credit card number'
   assert has_no_field? 'Expiration date'
   assert has_no_field? 'Po number'
 
-  select 'Credit card', from: 'Pay type'
+  select 'Credit Card', from: 'Pay type'
 
   assert has_no_field? 'Routing number'
   assert has_no_field? 'Account number'
@@ -36,7 +36,7 @@ class OrdersTest < ApplicationSystemTestCase
   assert has_field? 'Expiration date'
   assert has_no_field? 'Po number'
 
-  select 'Purchase order', from: 'Pay type'
+  select 'Purchase Order', from: 'Pay type'
 
   assert has_no_field? 'Routing number'
   assert has_no_field? 'Account number'
@@ -54,15 +54,16 @@ class OrdersTest < ApplicationSystemTestCase
   test "should create order" do
     visit orders_url
     click_on "New order"
-
+    click_on "Add to card", match: :first
+    click_on "Checkout"
     fill_in "Name", with: @order.name
     fill_in "Address", with: @order.address
     fill_in "E-mail", with: @order.email
-    fill_in "Pay type", with: @order.pay_type
-    click_on "Create Order"
-
-    assert_text "Order was successfully created"
-    click_on "Back"
+    select "Check", from: "Pay type"
+    fill_in "Account number", with: "12345"
+    fill_in "Routing number", with: "98765"
+    click_on "Place Order"
+    assert_text "Thank you for your order"
   end
 
   test "should update Order" do
@@ -72,7 +73,7 @@ class OrdersTest < ApplicationSystemTestCase
     fill_in "Name", with: @order.name
     fill_in "Address", with: @order.address
     fill_in "E-mail", with: @order.email
-    fill_in "Pay type", with: @order.pay_type
+    select @order.pay_type, from: "Pay type"
     click_on "Place Order"
 
     assert_text "Order was successfully updated"
@@ -95,16 +96,15 @@ class OrdersTest < ApplicationSystemTestCase
 
     fill_in "Name",	with: "Dave Thomas"
     fill_in "Address",	with: "123 Main Street"
-    fill_in "Email",	with: "dave@example.com"
+    fill_in "E-mail",	with: "dave@example.com"
     select 'Check', from: "Pay type"
     fill_in "Routing number",	with: "123456"
     fill_in "Account number",	with: "987654"
     click_button "Place Order"
     assert_text "Thank you for your order"
-    
     perform_enqueued_jobs
     perform_enqueued_jobs
-    assert_performedd_jobs 2
+    assert_performed_jobs 2
 
     orders = Order.all
     assert_equal 1, orders.size
@@ -118,7 +118,7 @@ class OrdersTest < ApplicationSystemTestCase
 
     mail = ActionMailer::Base.deliveries.last
     assert_equal ["dave@example.com"],  mail.to
-    assert_equal "Sam Ruby <depot@example.com", mail[:from].value
+    assert_equal "Sam Ruby <depot@example.com>", mail[:from].value
     assert_equal "Pragmatic Store Order Confirmation", mail.subject
   end
 end

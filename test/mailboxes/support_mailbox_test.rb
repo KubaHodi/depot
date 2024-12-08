@@ -5,7 +5,7 @@ class SupportMailboxTest < ActionMailbox::TestCase
     receive_inbound_email_from_mail(
       to: "support@example.com",
       from: "dave@example.org",
-      subject: "yes",
+      subject: "Need help",
       body: "test"
     )
     support_request = SupportRequest.last

@@ -2,8 +2,14 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+require "database_cleaner"
+require "database_cleaner_support"
+
+DatabaseCleaner.clean_with :truncation
+DatabaseCleaner.strategy = :transaction
 module ActiveSupport
   class TestCase
+    include DatabaseCleanerSupport
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors, with: :threads)
 
@@ -14,6 +20,7 @@ module ActiveSupport
   end
 
   class ActionDispatch::IntegrationTest
+    include DatabaseCleanerSupport
     def logout
       delete logout_url
     end
