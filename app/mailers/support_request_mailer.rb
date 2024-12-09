@@ -5,8 +5,10 @@ class SupportRequestMailer < ApplicationMailer
   #   en.support_request_mailer.respond.subject
   #
   default from: "support@example.com"
+  
   def respond(support_request)
     @support_request = support_request
     mail to: @support_request.email, subject: "Re: #{@support_request.subject}"
   end
+  
 end

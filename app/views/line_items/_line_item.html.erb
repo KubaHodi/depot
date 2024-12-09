@@ -10,8 +10,8 @@
   </td>
   <td class="text-right font-bold">
     <%= number_to_currency(line_item.total_price)  %>
-    <%=button_to "Delete",
-    line_item,
+    <%=button_to "-",
+    {:controller => :line_items, :action => 'destroy', :id => line_item.id},
     method: :delete,
     form_class: 'inline',
     class: 'ml-4 rounded-lg py-1 px-2 text-white bg-green-600' %>
